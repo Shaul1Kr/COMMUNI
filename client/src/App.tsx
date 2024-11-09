@@ -15,7 +15,7 @@ function App() {
   };
 
   const isPrime = useCallback((num: number) => {
-    if (num == 1) return true;
+    if (num == 1) return true; //Edge cases
     if (primeNumbers.current.has(num)) return true;
     for (const primeNumber of primeNumbers.current)
       if (num % primeNumber === 0) return false;
@@ -26,6 +26,8 @@ function App() {
   const hasCommonDivider = useCallback(
     (currentNumber: number, selectNumber: number | undefined) => {
       if (!selectNumber) return false;
+      if (selectNumber === 1) return true; //Edge cases
+      if (currentNumber === 1) return true; //Edge cases
       for (const primeNumber of primeNumbers.current)
         if (
           currentNumber % primeNumber === 0 &&
