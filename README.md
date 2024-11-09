@@ -26,7 +26,7 @@ The infinite board has the following functionality:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/infinite-board.git
+   git clone https://github.com/Shaul1Kr/COMMUNI
    ```
 2. Navigate into the project directory:
    ```bash
