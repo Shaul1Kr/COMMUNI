@@ -2,13 +2,16 @@ import { useCallback, useRef, useState } from "react";
 import "./App.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 
+const INITIAL_AMOUNT = 600;
+const INCREMENTAL_AMOUNT = 20;
+
 function App() {
-  const [maxNumber, setMaxNumber] = useState<number>(600);
+  const [maxNumber, setMaxNumber] = useState<number>(INITIAL_AMOUNT);
   const primeNumbers = useRef(new Set([2]));
-  const [selectNumber, setSelectNumber] = useState<number | undefined>();
+  const [selectedNumber, setSelectedNumber] = useState<number | undefined>();
 
   const fetchMoreData = () => {
-    setMaxNumber((prev) => prev + 20);
+    setMaxNumber((prev) => prev + INCREMENTAL_AMOUNT);
   };
 
   const isPrime = useCallback((num: number) => {
@@ -35,14 +38,14 @@ function App() {
   );
 
   const getClass = (currentNumber: number) => {
-    if (hasCommonDivider(currentNumber, selectNumber))
+    if (hasCommonDivider(currentNumber, selectedNumber))
       return "bg-blue-500 text-white";
     if (isPrime(currentNumber)) return "bg-red-500";
     return "";
   };
 
   return (
-    <div onMouseUp={() => setSelectNumber(undefined)}>
+    <div onMouseUp={() => setSelectedNumber(undefined)}>
       <InfiniteScroll
         dataLength={maxNumber}
         next={fetchMoreData}
@@ -54,7 +57,7 @@ function App() {
           {Array.from({ length: maxNumber }).map((_, i) => (
             <div
               key={i}
-              onMouseDown={() => setSelectNumber(i + 1)}
+              onMouseDown={() => setSelectedNumber(i + 1)}
               className={`border-2 w-12 h-12 flex items-center justify-center cursor-pointer ${getClass(
                 i + 1
               )} `}
